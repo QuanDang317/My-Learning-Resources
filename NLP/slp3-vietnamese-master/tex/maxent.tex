@@ -1,0 +1,15 @@
+\section{Maximum Entropy}
+
+Mô hình entropy cực đại cung cấp một phương pháp đơn giản để ước lượng xác suất có điều kiện $p(y|x)$ thông qua việc thống kê các thuộc tính quan trọng quan sát được từ tập dữ liệu huấn luyện \footnote{\href{http://uet.vnu.edu.vn/~thuyhq/Student_Thesis/K47_Nguyen_Thi_Thuy_Linh_Thesis.pdf}{Nguyễn Thị Thùy Linh, Phân lớp tài liệu web độc lập ngôn ngữ}}.
+
+\noindent \textbf{Tập dữ liệu huấn luyện} Để làm bài toán phân lớp, trước tiên phải xây dựng tập dữ liệu $T = \{ (x_1, y_1), ... , (x_N, y_N) \}$, trong đó \{x_1, ... , x_N\}$ là tập các thông tin ngữ cảnh đã được gán nhãn tương ứng là tập các lớp $\{y_1,..., y_N\}$
+
+Với mỗi cặp $(x_i, y_i)$, phân phối xác suất thực nghiệm của nó được tính bởi
+
+$\widetilde{p} (x_i, y_i) = \frac{1}{N} \times $ số lần xuất hiện của $(x_i, y_i)$ trong tập dữ liệu mẫu
+
+Thông thường thì mỗi cặp $(x_i, y_i)$ không thể không xuất hiện trong tập mẫu, mà nó sẽ xuất hiện ít nhất một lần.
+
+
+
+

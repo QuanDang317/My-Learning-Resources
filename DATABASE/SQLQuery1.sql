@@ -1,0 +1,4 @@
+-- CREATE DATABASE -- tu khoa cua he thong
+-- LEARN_CSDL -- Ten database;
+-- ALTER DATABASE " " MODIFY NAME = LEARN_CSDL -- doi ten database;
+-- Drop Database LEARN_CSDL -- Yeu cau xoa Database

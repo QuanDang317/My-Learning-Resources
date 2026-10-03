@@ -1,0 +1,99 @@
+scikit-learn (thường được import là sklearn) là một thư viện Python rất phổ biến
+dùng để xây dựng và huấn luyện các mô hình Machine Learning
+
+1. K-Nearest Neighbors
+KNN (K-Nearest Neighbors) là một thuật toán học máy (machine learning) thuộc nhóm học có giám sát (supervised learning),
+thường dùng cho: • Phân loại (classification): dự đoán một đối tượng thuộc lớp nào.
+                 • Hồi quy (regression): dự đoán một giá trị số.
+Ý tưởng chính: 1 điểm dữ liệu mới được phân loại hoặc dự đoán dựa trên các điểm dữ liệu lân cận gần nhất trong tập huấn luyện.
+2. Nguyên lý hoạt động
+Ví dụ với phân loại:
+ • Cho một điểm mới x.
+ • Tính khoảng cách từ x đến tất cả các điểm trong tập dữ liệu (thường dùng khoảng cách Euclidean).
+ • Chọn ra K điểm gần nhất.
+ • Xem trong K điểm đó, lớp nào xuất hiện nhiều nhất → gán lớp đó cho x.
+Với hồi quy:
+ • Lấy giá trị trung bình (hoặc trung vị) của nhãn trong K điểm gần nhất → dự đoán giá trị cho x.
+
+Nguyên lý đằng sau các phương pháp láng giềng gần nhất là tìm một số lượng mẫu huấn luyện được xác định trước,
+gần nhất về khoảng cách với điểm mới, và dự đoán nhãn từ những mẫu này
+Cac buoc:
+B1 : Lua chon sieu tham so K(so luong ham xom)
+    TH1 : k qua nho -> overfiting -> mô hình hoạt động hoàn hảo trên dữ liệu huấn luyện
+    nhưng lại dự đoán kém trên dữ liệu mới
+    TH2 : k qua lon -> underfiting -> Mô hình có thể dự đoán tất cả các điểm mới đều thuộc về
+    lớp phổ biến nhất trong toàn bộ tập dữ liệu.
+    -Dể chọn k tối ưu :
+    Cross-Validation (hq nhat), Rule of Thumb, Chọn k là số lẻ cho bài toán phân loại.
+B2 : Tính khoảng cách
+    • Khoảng cách Manhattan
+    • Khoảng cách Euclidean
+
+    -Chuẩn hóa số liệu:
+    • Min-Max Scaling (Normalization): Đưa tất cả giá trị của một đặc trưng về một khoảng [0, 1].
+    Xscaled = (X − Xmin) / (Xmax − Xmin)
+    • Standardization (Z-score Normalization): Biến đổi dữ liệu sao cho đặc trưng có giá trị trung
+    bình (μ) là 0 và độ lệch chuẩn (σ) là 1.
+    Xscaled = (X − μ) / σ
+B3 : Tìm k láng giềng gần nhất
+    1. Sắp xếp các khoảng cách đã tính ở trên theo thứ tự từ nhỏ đến lớn.
+    2. Chọn ra k điểm dữ liệu ứng với k khoảng cách nhỏ nhất. Những điểm này chính là “hội đồng”
+    láng giềng sẽ đưa ra quyết định cuối cùng.
+B4 : Ra quyết định - Dự đoán kết quả
+    -Đối với bài toán Hồi quy - Lấy giá trị trung bình
+    -Đối với bài toán Phân loại - Lấy ý kiến số đông
+MỞ RỘNG
++) scikit-learn triển khai hai bộ phân loại láng giềng gần nhất khác nhau:
+   -KNeighborsClassifier (Polular) triển khai học tập dựa trên những người hàng xóm gần nhất của mỗi điểm truy vấn, trong
+   đó là một giá trị số nguyên do người dùng chỉ định.
+   -RadiusNeighborsClassifier (TH data 0 đc lấy mẫu đồng đều) phân loại lân cận dựa trên bán kính thực hiện học tập dựa
+trên số lượng hàng xóm trong một bán kính cố định của mỗi điểm đào tạo, nơi là giá trị dấu phẩy động do người dùng chỉ định.
+
++) scikit-learn triển khai hai bộ hồi quy láng giềng khác nhau:
+   -KNeighborsRegressortriển khai học tập dựa trên những người hàng xóm gần nhất của mỗi điểm truy vấn, trong đó
+là một giá trị số nguyên do người dùng chỉ định.
+   -RadiusNeighborsRegressorthực hiện học tập dựa trên các láng giềng trong một bán kính cố định của điểm truy vấn, nơi
+là giá trị dấu phẩy động do người dùng chỉ định.
+
++) Bộ phân loại tâm gần nhất
+    -Bộ NearestCentroidphân loại là một thuật toán đơn giản, biểu diễn mỗi lớp theo trọng tâm của các thành viên (nó ko có tham
+số để lựa chọn)
+    -shrink_thresholdtham số, thực hiện bộ phân loại trọng tâm thu nhỏ gần nhất
++) Khi truy vấn một số lượng cụ thể các láng giềng (sử dụng KNeighborsTransformer)
+
++)Phân tích Thành phần Lân cận (NCA, NeighborhoodComponentsAnalysis) là một thuật toán học khoảng cách nhằm mục đích cải
+thiện độ chính xác của phân loại lân cận gần nhất so với khoảng cách Euclid chuẩn. Thuật toán này trực tiếp tối đa hóa một
+biến thể ngẫu nhiên của điểm số k-lân cận gần nhất (KNN) loại trừ một phần tử trên tập huấn luyện. Nó cũng có thể học một
+phép chiếu tuyến tính chiều thấp của dữ liệu, có thể được sử dụng để trực quan hóa dữ liệu và phân loại nhanh.
+
+
+1. KDTree(K-Dimensional Tree)
+Khái niệm:
+KDTree là một cây nhị phân dùng để tổ chức các điểm dữ liệu trong không gian k chiều.
+Nó giúp tìm kiếm nhanh điểm gần nhất hoặc các điểm lân cận trong dữ liệu đa chiều.
+Cách hoạt động:
+Tại mỗi nút của cây, dữ liệu được chia theo một chiều (một trong các chiều k) thành hai phần: nhỏ hơn hoặc lớn hơn một giá trị trung bình (hoặc giá trị chọn trước).
+Ví dụ: Với dữ liệu 2 chiều (x, y), tầng đầu tiên có thể chia theo x, tầng tiếp theo chia theo y, tầng tiếp theo lại chia theo x, và cứ thế luân phiên.
+Quá trình chia tiếp tục đệ quy đến khi mỗi vùng con chứa rất ít điểm (hoặc đến một mức độ nào đó).
+Ưu điểm:
+Tìm kiếm điểm gần nhất nhanh hơn so với tìm kiếm tuyến tính
+Hiệu quả co với dữ liệu có số chiều không quá lớn (thường dưới 20 chiều).
+Nhược điểm:
+Khi số chiều rất lớn, KDTree sẽ mất dần hiệu quả do hiện tượng "curse of dimensionality"
+Việc cân bằng cây và chọn chiều chia có thể ảnh hưởng đến hiệu suất.
+2. BallTree
+Khái niệm:
+BallTree cũng là cấu trúc dữ liệu để tìm kiếm điểm gần nhất, nhưng thay vì chia theo các chiều cố định, BallTree chia
+không gian thành các "quả cầu" (ball) chứa các điểm dữ liệu.
+Mỗi nút trong cây biểu diễn một vùng dữ liệu nằm trong một quả cầu (ball) với tâm và bán kính xác định.
+Cách hoạt động:
+Tại mỗi nút, tập điểm được chia thành hai nhóm sao cho mỗi nhóm được bao bọc bởi một quả cầu nhỏ hơn.
+Việc chia tiếp tục đệ quy đến khi số điểm trong mỗi nút nhỏ hoặc thỏa điều kiện dừng.
+Khi tìm kiếm, thuật toán so sánh khoảng cách đến các quả cầu trước, giúp loại bỏ nhanh các vùng không chứa điểm gần nhất.
+Ưu điểm:
+Thường hoạt động tốt hơn KDTree với dữ liệu có số chiều cao (high-dimensional data).
+Linh hoạt hơn trong việc bao phủ các vùng dữ liệu không đồng nhất.
+Hiệu quả hơn khi dữ liệu không phân bố đều hoặc có cấu trúc phức tạp.
+Nhược điểm:
+Cấu trúc cây phức tạp hơn KDTree.
+Chi phí xây dựng cây và truy vấn có thể cao hơn nếu dữ liệu quá lớn.
